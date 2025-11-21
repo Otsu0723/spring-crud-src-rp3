@@ -92,6 +92,7 @@
 	</dependencies>
 	
 	<build>
+		<finalName>spring_crud_answer</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
