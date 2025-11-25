@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import jp.co.sss.crud.form.LoginForm;
+import jp.co.sss.crud.service.LoginResult;
 import jp.co.sss.crud.service.LoginService;
 
 @Controller
@@ -42,6 +43,7 @@ public class IndexController {
 	 * @param result エラー検知オブジェクト
 	 * @param session 
 	 * @param model リクエストスコープの操作
+	 * @param user 
 	 * @return 遷移先ビュー
 	 */
 	@RequestMapping(path = "/login", method = RequestMethod.POST)
@@ -49,15 +51,19 @@ public class IndexController {
 			Model model) {
 
 		//TODO 入力エラーがある場合、result.hasErrorsメソッドを呼びだしindex.htmlへ戻る
-		if (false) {
+		if (result.hasErrors()) {
+			return "index";
 		}
 
 		//TODO loginServiceのメソッドを呼びだし、LoginResult型のオブジェクトへ代入する
+		LoginResult loginResult = loginService.execute(loginForm);
 
+		System.out.println("★");
 		//TODO loginResult.isLoginの結果がtrueの場合、ログイン成功でセッションに"user"という名前でセッションにユーザーの情報を登録する
-		if (true) {
+		if (loginResult.isLogin()) {
 
 			//TODO セッションにuser登録
+			session.setAttribute("user", loginResult.getLoginUser());
 
 			// 一覧へリダイレクト
 			return "redirect:/list";
@@ -65,15 +71,23 @@ public class IndexController {
 		} else {//ログイン失敗時
 
 			//TODO loginResult.getErrorMsgを呼び出し、メッセージをmodelスコープに登録
+			model.addAttribute("errorMsg", loginResult.getErrorMsg());
 
 			return "index";
 		}
 
 	}
 
+	/**
+	 * 
+	 * ログアウト
+	 * 
+	 * @return 遷移先ビュー
+	 */
 	@RequestMapping(path = "/logout", method = RequestMethod.GET)
 	public String logout() {
 		//TODO セッションの破棄
+		session.invalidate();
 
 		//index.htmlへ遷移
 		return "redirect:/";

@@ -26,24 +26,14 @@
 		resultType="jp.co.sss.crud.entity.Employee">
 	</select>
 
-	<!-- 部署ID検索 -->
+	<!-- TODO 部署ID検索 -->
 	<select id="findByDepartmentDeptIdOrderByEmpId"
 		resultType="jp.co.sss.crud.entity.Employee">
-		SELECT *
-		FROM Employee e
-		INNER JOIN Department d ON e.dept_id = d.dept_id
-		WHERE e.dept_id = #{deptId}
-		ORDER BY e.emp_id ASC
 	</select>
 
 	<!-- TODO ログイン用のIDとパスワード検索 -->
 	<select id="findByEmpIdAndEmpPass"
 		resultType="jp.co.sss.crud.entity.Employee">
-		SELECT *
-		FROM Employee e
-		INNER JOIN Department d ON e.dept_id = d.dept_id
-		WHERE emp_id = #{empId}
-		AND emp_pass = #{empPass}
 	</select>
 
 
