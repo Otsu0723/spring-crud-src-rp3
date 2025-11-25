@@ -58,7 +58,6 @@ public class IndexController {
 		//TODO loginServiceのメソッドを呼びだし、LoginResult型のオブジェクトへ代入する
 		LoginResult loginResult = loginService.execute(loginForm);
 
-		System.out.println("★");
 		//TODO loginResult.isLoginの結果がtrueの場合、ログイン成功でセッションに"user"という名前でセッションにユーザーの情報を登録する
 		if (loginResult.isLogin()) {
 
