@@ -21,7 +21,7 @@
 		WHERE emp_id = #{empId}
 	</select>
 
-	<!-- TODO 社員名検索 -->
+	<!-- 社員名検索 -->
 	<select id="findByEmpNameContainingOrderByEmpId"
 		resultType="jp.co.sss.crud.entity.Employee">
 		SELECT
@@ -50,7 +50,7 @@
 		ORDER BY e.emp_id ASC
 	</select>
 
-	<!-- TODO ログイン用のIDとパスワード検索 -->
+	<!-- ログイン用のIDとパスワード検索 -->
 	<select id="findByEmpIdAndEmpPass"
 		resultType="jp.co.sss.crud.entity.Employee">
 		SELECT *
@@ -74,7 +74,7 @@
 		)
 	</insert>
 
-	<!-- TODO IDによる単一変更 -->
+	<!-- IDによる単一変更 -->
 	<update id="update"	parameterType="jp.co.sss.crud.entity.Employee">
 		UPDATE Employee
 		SET
@@ -90,7 +90,7 @@
 	</update>
 
 
-	<!-- TODO IDによる単一削除 -->
+	<!-- IDによる単一削除 -->
 	<delete id="delete" parameterType="int">
 		DELETE
 		FROM 
