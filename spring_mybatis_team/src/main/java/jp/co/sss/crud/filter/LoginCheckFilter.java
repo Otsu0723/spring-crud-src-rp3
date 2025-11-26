@@ -20,12 +20,12 @@ public class LoginCheckFilter extends HttpFilter {
 	public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 
-		//TODO セッションからユーザー情報を取得
+		//セッションからユーザー情報を取得
 		HttpSession session = request.getSession(false);
 
 		Object user = (session != null) ? session.getAttribute("user") : null;
 
-		//TODO ユーザーがNULLの場合、ログイン画面にリダイレクトする
+		// ユーザーがNULLの場合、ログイン画面にリダイレクトする
 		if (user == null) {
 			response.sendRedirect(request.getContextPath() + "/");
 			return;

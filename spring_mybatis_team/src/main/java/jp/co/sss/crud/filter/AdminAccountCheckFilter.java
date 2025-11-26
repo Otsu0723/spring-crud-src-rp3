@@ -32,23 +32,23 @@ public class AdminAccountCheckFilter extends HttpFilter {
 			return;
 		}
 
-		//TODO セッションからユーザー情報を取得
+		// セッションからユーザー情報を取得
 		HttpSession session = request.getSession(false);
 		Object sessionUser = (session != null) ? session.getAttribute("user") : null;
 
-		//TODO セッションユーザーのIDと権限の変数をそれぞれ初期化
+		// セッションユーザーのIDと権限の変数をそれぞれ初期化
 		Integer loginEmpId = null;
 		Integer loginAuthority = null;
 
-		//TODO セッションユーザーがNULLでない場合
+		// セッションユーザーがNULLでない場合
 		if (sessionUser != null) {
-			//TODO セッションユーザーからID、権限を取得して変数に代入
+			// セッションユーザーからID、権限を取得して変数に代入
 			Employee user = (Employee) sessionUser;
 			loginEmpId = user.getEmpId();
 			loginAuthority = user.getAuthority();
 		}
 
-		//TODO  更新対象の社員IDをリクエストから取得
+		// 更新対象の社員IDをリクエストから取得
 		String empIdStr = request.getParameter("empId");
 
 		// パスパラメータ（/update/3など）の場合にも対応
@@ -63,28 +63,28 @@ public class AdminAccountCheckFilter extends HttpFilter {
 		// 変換後のID格納用
 		Integer targetEmpId = null;
 
-		//TODO  社員IDがNULLでない場合
+		// 社員IDがNULLでない場合
 		if (empIdStr != null) {
-			//TODO 社員IDを整数型に変換
+			// 社員IDを整数型に変換
 			targetEmpId = Integer.parseInt(empIdStr);
 		}
 
 		//フィルター通過のフラグを初期化 true:フィルター通過 false:ログイン画面へ戻す
 		boolean accessFlg = false;
 
-		//TODO  管理者(セッションユーザーのIDが2)の場合、アクセス許可
+		// 管理者(セッションユーザーのIDが2)の場合、アクセス許可
 		if (loginEmpId != null && loginEmpId == 2) {
 			accessFlg = true;
-			//TODO  ログインユーザ自身(セッションユーザのIDと変更リクエストの社員IDが一致)の画面はアクセス許可
+			// ログインユーザ自身(セッションユーザのIDと変更リクエストの社員IDが一致)の画面はアクセス許可
 		} else if (loginEmpId != null && targetEmpId != null && loginEmpId.equals(targetEmpId)) {
 			accessFlg = true;
 		}
 
-		//TODO  accessFlgが立っていない場合はログイン画面へリダイレクトし、処理を終了する
+		// accessFlgが立っていない場合はログイン画面へリダイレクトし、処理を終了する
 		if (!accessFlg) {
-			//TODO  レスポンス情報を取得
+			// レスポンス情報を取得
 			response.sendRedirect(request.getContextPath() + "/");
-			//TODO  ログイン画面へリダイレクト
+			// ログイン画面へリダイレクト
 
 			//処理を終了
 			return;

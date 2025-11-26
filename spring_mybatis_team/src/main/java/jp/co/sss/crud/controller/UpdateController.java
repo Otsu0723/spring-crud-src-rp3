@@ -57,9 +57,9 @@ public class UpdateController {
 		if (session.getAttribute("user") == null) {
 			session.setAttribute("user", new Employee());
 		}
-		//TODO 社員IDに紐づく社員情報を検索し、Employee型の変数に代入する
+		// 社員IDに紐づく社員情報を検索し、Employee型の変数に代入する
 		Employee employee = searchForEmployeesByEmpIdService.execute(empId);
-		//TODO 検索した社員情報をformに積め直す(BeanCopyクラスを用いてもよい)	
+		// 検索した社員情報をformに積め直す(BeanCopyクラスを用いてもよい)	
 		employeeForm.setEmpId(employee.getEmpId());
 		employeeForm.setEmpPass(employee.getEmpPass());
 		employeeForm.setEmpName(employee.getEmpName());
@@ -83,14 +83,14 @@ public class UpdateController {
 	 */
 	@RequestMapping(path = "/update/check", method = RequestMethod.POST)
 	public String checkUpdate(@Valid @ModelAttribute EmployeeForm employeeForm, BindingResult result, Model model) {
-		// TODO 入力チェックでエラーが発生した場合
+		// 入力チェックでエラーが発生した場合
 		if (result.hasErrors()) {
 			// エラーがある場合は入力画面に戻る
 			return "update/update_input";
 		} else {
-			// TODO 部署IDから部署情報を検索する
+			// 部署IDから部署情報を検索する
 			Department department = searchForDepartmentByDeptIdService.execute(employeeForm.getDeptId());
-			// TODO 部署名をモデルに追加する
+			// 部署名をモデルに追加する
 			model.addAttribute("deptName", department.getDeptName());
 			// 更新確認画面のビュー名を返す
 			return "update/update_check";
@@ -119,7 +119,7 @@ public class UpdateController {
 	@RequestMapping(path = "/update/complete", method = RequestMethod.POST)
 	public String completeUpdate(EmployeeForm employeeForm, HttpSession session) {
 
-		// TODO フォームの内容をEmployeeエンティティにコピー
+		// フォームの内容をEmployeeエンティティにコピー
 		Employee employee = new Employee();
 		employee.setEmpId(employeeForm.getEmpId());
 		employee.setEmpPass(employeeForm.getEmpPass());
@@ -129,18 +129,18 @@ public class UpdateController {
 		employee.setBirthday(employeeForm.getBirthday());
 		employee.setAuthority(employeeForm.getAuthority());
 		employee.setDeptId(employeeForm.getDeptId());
-		// TODO 権限がnullの場合、デフォルトの権限を設定
+		// 権限がnullの場合、デフォルトの権限を設定
 		if (employee.getAuthority() == null) {
 			employee.setAuthority(Constant.DEFAULT_AUTHORITY);
 		}
 
-		// TODO 社員情報を更新する
+		// 社員情報を更新する
 		updateEmployeeService.execute(employee);
-		// TODO セッションからユーザー情報を取得
+		// セッションからユーザー情報を取得
 		Employee user = (Employee) session.getAttribute("user");
-		// TODO ログイン中のユーザーが自分の情報を更新した場合、セッション情報も更新
+		// ログイン中のユーザーが自分の情報を更新した場合、セッション情報も更新
 		if (user != null && user.getEmpId().equals(employee.getEmpId())) {
-			// TODO セッションに保存されているユーザーの社員名を更新
+			// セッションに保存されているユーザーの社員名を更新
 			user.setEmpPass(employee.getEmpPass());
 			user.setEmpName(employee.getEmpName());
 			user.setGender(employee.getGender());

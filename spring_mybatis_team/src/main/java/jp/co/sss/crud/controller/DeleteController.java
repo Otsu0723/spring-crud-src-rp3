@@ -46,11 +46,11 @@ public class DeleteController {
 	@RequestMapping(path = "/delete/check", method = RequestMethod.GET)
 	public String checkDelete(Integer empId, Model model) {
 
-		// TODO 社員IDに紐づく社員情報を検索し、Employee型の変数に代入する
+		// 社員IDに紐づく社員情報を検索し、Employee型の変数に代入する
 		Employee employee = searchForEmployeesByEmpIdService.execute(empId);
-		// TODO 取得した社員情報をモデルに追加する
+		// 取得した社員情報をモデルに追加する
 		model.addAttribute("employee", employee);
-		// TODO 取得した社員の部署名をモデルに追加する
+		// 取得した社員の部署名をモデルに追加する
 		model.addAttribute("deptName", employee.getDeptName());
 		// 削除確認画面のビュー名を返す
 		return "delete/delete_check";
@@ -65,9 +65,9 @@ public class DeleteController {
 	 */
 	@RequestMapping(path = "/delete/complete", method = RequestMethod.POST)
 	public String completeDelete(Integer empId) {
-		// TODO 取得した社員IDをもとに社員情報を削除する
+		// 取得した社員IDをもとに社員情報を削除する
 		deleteEmployeeService.execute(empId);
-		//  削除完了画面へリダイレクトする
+		// 削除完了画面へリダイレクトする
 		return "redirect:/delete/complete";
 	}
 
@@ -78,7 +78,7 @@ public class DeleteController {
 	 */
 	@RequestMapping(path = "/delete/complete", method = RequestMethod.GET)
 	public String completeDelete() {
-		//削除完了画面のビュー名を返す
+		// 削除完了画面のビュー名を返す
 		return "delete/delete_complete";
 
 	}
