@@ -11,10 +11,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import jp.co.sss.crud.entity.Department;
+import jp.co.sss.crud.entity.Employee;
 import jp.co.sss.crud.form.EmployeeForm;
 import jp.co.sss.crud.service.SearchForDepartmentByDeptIdService;
 import jp.co.sss.crud.service.SearchForEmployeesByEmpIdService;
 import jp.co.sss.crud.service.UpdateEmployeeService;
+import jp.co.sss.crud.util.Constant;
 
 /**
  * 社員更新コントローラー
@@ -50,12 +53,21 @@ public class UpdateController {
 	 * @return 遷移先のビュー
 	 */
 	@RequestMapping(path = "/update/input", method = RequestMethod.GET)
-	public String inputUpdate(Integer empId, @ModelAttribute EmployeeForm employeeForm) {
-
+	public String inputUpdate(Integer empId, @ModelAttribute EmployeeForm employeeForm, HttpSession session) {
+		if (session.getAttribute("user") == null) {
+			session.setAttribute("user", new Employee());
+		}
 		//TODO 社員IDに紐づく社員情報を検索し、Employee型の変数に代入する
-
+		Employee employee = searchForEmployeesByEmpIdService.execute(empId);
 		//TODO 検索した社員情報をformに積め直す(BeanCopyクラスを用いてもよい)	
-
+		employeeForm.setEmpId(employee.getEmpId());
+		employeeForm.setEmpPass(employee.getEmpPass());
+		employeeForm.setEmpName(employee.getEmpName());
+		employeeForm.setGender(employee.getGender());
+		employeeForm.setAddress(employee.getAddress());
+		employeeForm.setBirthday(employee.getBirthday());
+		employeeForm.setAuthority(employee.getAuthority());
+		employeeForm.setDeptId(employee.getDeptId());
 		// 更新確認画面のビュー名を返す
 		return "update/update_input";
 	}
@@ -72,14 +84,14 @@ public class UpdateController {
 	@RequestMapping(path = "/update/check", method = RequestMethod.POST)
 	public String checkUpdate(@Valid @ModelAttribute EmployeeForm employeeForm, BindingResult result, Model model) {
 		// TODO 入力チェックでエラーが発生した場合
-		if (false) {
+		if (result.hasErrors()) {
 			// エラーがある場合は入力画面に戻る
 			return "update/update_input";
 		} else {
 			// TODO 部署IDから部署情報を検索する
-
+			Department department = searchForDepartmentByDeptIdService.execute(employeeForm.getDeptId());
 			// TODO 部署名をモデルに追加する
-
+			model.addAttribute("deptName", department.getDeptName());
 			// 更新確認画面のビュー名を返す
 			return "update/update_check";
 		}
@@ -108,19 +120,36 @@ public class UpdateController {
 	public String completeUpdate(EmployeeForm employeeForm, HttpSession session) {
 
 		// TODO フォームの内容をEmployeeエンティティにコピー
-
+		Employee employee = new Employee();
+		employee.setEmpId(employeeForm.getEmpId());
+		employee.setEmpPass(employeeForm.getEmpPass());
+		employee.setEmpName(employeeForm.getEmpName());
+		employee.setGender(employeeForm.getGender());
+		employee.setAddress(employeeForm.getAddress());
+		employee.setBirthday(employeeForm.getBirthday());
+		employee.setAuthority(employeeForm.getAuthority());
+		employee.setDeptId(employeeForm.getDeptId());
 		// TODO 権限がnullの場合、デフォルトの権限を設定
-		if (false) {
+		if (employee.getAuthority() == null) {
+			employee.setAuthority(Constant.DEFAULT_AUTHORITY);
 		}
 
 		// TODO 社員情報を更新する
-
+		updateEmployeeService.execute(employee);
 		// TODO セッションからユーザー情報を取得
-
+		Employee user = (Employee) session.getAttribute("user");
 		// TODO ログイン中のユーザーが自分の情報を更新した場合、セッション情報も更新
-		if (false) {
+		if (user != null && user.getEmpId().equals(employee.getEmpId())) {
 			// TODO セッションに保存されているユーザーの社員名を更新
+			user.setEmpPass(employee.getEmpPass());
+			user.setEmpName(employee.getEmpName());
+			user.setGender(employee.getGender());
+			user.setAddress(employee.getAddress());
+			user.setBirthday(employee.getBirthday());
+			user.setAuthority(employee.getAuthority());
+			user.setDeptId(employee.getDeptId());
 
+			session.setAttribute("user", user);
 		}
 
 		// 更新完了画面へリダイレクト

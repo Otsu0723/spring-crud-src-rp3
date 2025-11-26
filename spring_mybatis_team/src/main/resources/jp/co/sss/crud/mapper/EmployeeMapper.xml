@@ -76,12 +76,27 @@
 
 	<!-- TODO IDによる単一変更 -->
 	<update id="update"	parameterType="jp.co.sss.crud.entity.Employee">
-
+		UPDATE Employee
+		SET
+			 emp_pass = #{empPass}
+			,emp_name = #{empName}
+			,gender = #{gender}
+			,address = #{address}
+			,birthday = #{birthday}
+			,authority = #{authority}
+			,dept_id = #{deptId}
+		WHERE
+			emp_id = #{empId}
 	</update>
+
 
 	<!-- TODO IDによる単一削除 -->
 	<delete id="delete" parameterType="int">
-
+		DELETE
+		FROM 
+			employee
+		WHERE
+			emp_id = #{empId}
 	</delete>
 
 
