@@ -24,6 +24,20 @@
 	<!-- TODO 社員名検索 -->
 	<select id="findByEmpNameContainingOrderByEmpId"
 		resultType="jp.co.sss.crud.entity.Employee">
+		SELECT
+        e.emp_id        AS empId,
+        e.emp_name      AS empName,
+        e.gender        AS gender,
+        e.address       AS address,
+        e.birthday      AS birthday,
+        e.authority     AS authority,
+        e.dept_id       AS deptId,
+        d.dept_name     AS deptName
+    FROM employee e
+    LEFT JOIN department d
+        ON e.dept_id = d.dept_id
+    WHERE e.emp_name LIKE CONCAT('%', #{empName}, '%')
+    ORDER BY e.emp_id ASC;
 	</select>
 
 	<!-- 部署ID検索 -->

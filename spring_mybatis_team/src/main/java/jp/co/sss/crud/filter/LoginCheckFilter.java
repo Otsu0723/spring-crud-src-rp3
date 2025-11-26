@@ -7,6 +7,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  * ログインチェック用フィルタ
@@ -20,8 +21,15 @@ public class LoginCheckFilter extends HttpFilter {
 			throws IOException, ServletException {
 
 		//TODO セッションからユーザー情報を取得
+		HttpSession session = request.getSession(false);
+
+		Object user = (session != null) ? session.getAttribute("user") : null;
 
 		//TODO ユーザーがNULLの場合、ログイン画面にリダイレクトする
+		if (user == null) {
+			response.sendRedirect(request.getContextPath() + "/");
+			return;
+		}
 
 		// 次の処理へ移行
 		chain.doFilter(request, response);
