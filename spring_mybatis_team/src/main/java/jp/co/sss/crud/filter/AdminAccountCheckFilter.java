@@ -66,14 +66,19 @@ public class AdminAccountCheckFilter extends HttpFilter {
 		// 社員IDがNULLでない場合
 		if (empIdStr != null) {
 			// 社員IDを整数型に変換
+			try {
 			targetEmpId = Integer.parseInt(empIdStr);
+			} catch (NumberFormatException e) {
+				response.sendRedirect(request.getContextPath() + "/");
+				return;
+			}
 		}
 
 		//フィルター通過のフラグを初期化 true:フィルター通過 false:ログイン画面へ戻す
 		boolean accessFlg = false;
 
 		// 管理者(セッションユーザーのIDが2)の場合、アクセス許可
-		if (loginEmpId != null && loginEmpId == 2) {
+		if (Integer.valueOf(2).equals(loginAuthority)) {
 			accessFlg = true;
 			// ログインユーザ自身(セッションユーザのIDと変更リクエストの社員IDが一致)の画面はアクセス許可
 		} else if (loginEmpId != null && targetEmpId != null && loginEmpId.equals(targetEmpId)) {
