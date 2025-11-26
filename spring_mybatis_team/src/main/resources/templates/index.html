@@ -15,7 +15,7 @@
 			<span th:each="error:${#fields.detailedErrors()}"> 
 				<span th:text="${error.message}"></span><br />
 			</span>
-			<span th:text="${errMessage}"></span>
+			<span th:text="${errorMsg}"></span>
 		</p>
 		<!-- エラーメッセージの出力(存在チェック) -->
 		<div class="login_form">

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import jp.co.sss.crud.entity.Employee;
 import jp.co.sss.crud.form.LoginForm;
 import jp.co.sss.crud.mapper.EmployeeMapper;
+import jp.co.sss.crud.util.Constant;
 import jp.co.sss.crud.util.LoginErrorType;
 
 /**
@@ -33,8 +34,7 @@ public class LoginService {
 
 		if (loginUser == null) {
 			// ログイン失敗
-			return LoginResult.failLogin("社員ID、またはパスワードが間違っています。", LoginErrorType.USER_NOT_FOUND);
-			//return LoginResult.failLogin("", LoginErrorType.INVALID_PASSWORD);
+			return LoginResult.failLogin(Constant.LOGIN_ERR_MSG, LoginErrorType.USER_NOT_FOUND);
 		} else {
 			// ログイン成功
 			return LoginResult.succeedLogin(loginUser);
