@@ -24,7 +24,7 @@ body {
 header {
 	height: 60px;
 	width: 100%;
-	background-color: #87CEEB;
+	background-color: #f3981d;
 	padding-top: 10px;
 }
 
@@ -50,7 +50,7 @@ aside {
 }
 
 aside .title {
-	background-color: #add8e6;
+	background-color: #eba786;
 	margin: 5px 0px 10px 10px;
 	padding: 3px;
 	font-weight: bold;
@@ -87,7 +87,7 @@ article {
 /* ---- フッター ---- */
 footer {
 	height: 30px;
-	background-color: #87CEEB;
+	background-color: #f3981d;
 	text-align: center;
 	font-size: 8pt;
 	line-height: 30px;
