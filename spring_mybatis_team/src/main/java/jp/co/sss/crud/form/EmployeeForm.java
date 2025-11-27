@@ -4,191 +4,192 @@ import java.util.Date;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
-
 public class EmployeeForm {
-	
-    /** 社員ID */
-    private Integer empId;
 
-    /** パスワード */
-    @NotBlank
-    @Size(min = 1, max = 16)
-    private String empPass;
+	/** 社員ID */
+	private Integer empId;
 
-    /** 社員名 */
-    @NotBlank
-    @Size(min = 1, max = 30)
-    private String empName;
+	/** パスワード */
+	@NotBlank
+	@Size(min = 1, max = 16)
+	@Pattern(regexp = "^[0-9]+$", message = "{pass.int}")
+	private String empPass;
 
-    /** 性別 */
-    private Integer gender;
+	/** 社員名 */
+	@NotBlank
+	@Size(min = 1, max = 30)
+	private String empName;
 
-    /** 住所 */
-    @NotBlank
-    @Size(min = 1, max = 60)
-    private String address;
+	/** 性別 */
+	private Integer gender;
 
-    /** 生年月日 */
-    @NotNull
-    private Date birthday;
+	/** 住所 */
+	@NotBlank
+	@Size(min = 1, max = 60)
+	private String address;
 
-    /** 権限 */
-    private Integer authority;
+	/** 生年月日 */
+	@NotNull
+	private Date birthday;
 
-    /** 部署ID */
-    private Integer deptId;
+	/** 権限 */
+	private Integer authority;
 
-    /**
-     * 社員IDの取得
-     *
-     * @return 社員ID
-     */
-    public Integer getEmpId() {
-        return empId;
-    }
+	/** 部署ID */
+	private Integer deptId;
 
-    /**
-     * 社員IDのセット
-     *
-     * @param empId
-     *            社員ID
-     */
-    public void setEmpId(Integer empId) {
-        this.empId = empId;
-    }
+	/**
+	 * 社員IDの取得
+	 *
+	 * @return 社員ID
+	 */
+	public Integer getEmpId() {
+		return empId;
+	}
 
-    /**
-     * パスワードの取得
-     *
-     * @return パスワード
-     */
-    public String getEmpPass() {
-        return empPass;
-    }
+	/**
+	 * 社員IDのセット
+	 *
+	 * @param empId
+	 *            社員ID
+	 */
+	public void setEmpId(Integer empId) {
+		this.empId = empId;
+	}
 
-    /**
-     * パスワードのセット
-     *
-     * @param empPass
-     *            パスワード
-     */
-    public void setEmpPass(String empPass) {
-        this.empPass = empPass;
-    }
+	/**
+	 * パスワードの取得
+	 *
+	 * @return パスワード
+	 */
+	public String getEmpPass() {
+		return empPass;
+	}
 
-    /**
-     * 社員名の取得
-     *
-     * @return 社員名
-     */
-    public String getEmpName() {
-        return empName;
-    }
+	/**
+	 * パスワードのセット
+	 *
+	 * @param empPass
+	 *            パスワード
+	 */
+	public void setEmpPass(String empPass) {
+		this.empPass = empPass;
+	}
 
-    /**
-     * 社員名のセット
-     *
-     * @param empName
-     *            社員名
-     */
-    public void setEmpName(String empName) {
-        this.empName = empName;
-    }
+	/**
+	 * 社員名の取得
+	 *
+	 * @return 社員名
+	 */
+	public String getEmpName() {
+		return empName;
+	}
 
-    /**
-     * 性別の取得
-     *
-     * @return 性別
-     */
-    public Integer getGender() {
-        return gender;
-    }
+	/**
+	 * 社員名のセット
+	 *
+	 * @param empName
+	 *            社員名
+	 */
+	public void setEmpName(String empName) {
+		this.empName = empName;
+	}
 
-    /**
-     * 性別のセット
-     *
-     * @param gender
-     *            性別
-     */
-    public void setGender(Integer gender) {
-        this.gender = gender;
-    }
+	/**
+	 * 性別の取得
+	 *
+	 * @return 性別
+	 */
+	public Integer getGender() {
+		return gender;
+	}
 
-    /**
-     * 住所の取得
-     *
-     * @return 住所
-     */
-    public String getAddress() {
-        return address;
-    }
+	/**
+	 * 性別のセット
+	 *
+	 * @param gender
+	 *            性別
+	 */
+	public void setGender(Integer gender) {
+		this.gender = gender;
+	}
 
-    /**
-     * 住所のセット
-     *
-     * @param address
-     *            住所
-     */
-    public void setAddress(String address) {
-        this.address = address;
-    }
+	/**
+	 * 住所の取得
+	 *
+	 * @return 住所
+	 */
+	public String getAddress() {
+		return address;
+	}
 
-    /**
-     * 生年月日の取得
-     *
-     * @return 生年月日
-     */
-    public Date getBirthday() {
-        return birthday;
-    }
+	/**
+	 * 住所のセット
+	 *
+	 * @param address
+	 *            住所
+	 */
+	public void setAddress(String address) {
+		this.address = address;
+	}
 
-    /**
-     * 生年月日のセット
-     *
-     * @param birthday
-     *            生年月日
-     */
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
-    }
+	/**
+	 * 生年月日の取得
+	 *
+	 * @return 生年月日
+	 */
+	public Date getBirthday() {
+		return birthday;
+	}
 
-    /**
-     * 権限の取得
-     *
-     * @return 権限
-     */
-    public Integer getAuthority() {
-        return authority;
-    }
+	/**
+	 * 生年月日のセット
+	 *
+	 * @param birthday
+	 *            生年月日
+	 */
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
+	}
 
-    /**
-     * 権限のセット
-     *
-     * @param authority
-     *            権限
-     */
-    public void setAuthority(Integer authority) {
-        this.authority = authority;
-    }
+	/**
+	 * 権限の取得
+	 *
+	 * @return 権限
+	 */
+	public Integer getAuthority() {
+		return authority;
+	}
 
-    /**
-     * 部署IDの取得
-     *
-     * @return 部署ID
-     */
-    public Integer getDeptId() {
-        return deptId;
-    }
+	/**
+	 * 権限のセット
+	 *
+	 * @param authority
+	 *            権限
+	 */
+	public void setAuthority(Integer authority) {
+		this.authority = authority;
+	}
 
-    /**
-     * 部署IDのセット
-     *
-     * @param deptId
-     *            部署ID
-     */
-    public void setDeptId(Integer deptId) {
-        this.deptId = deptId;
-    }
+	/**
+	 * 部署IDの取得
+	 *
+	 * @return 部署ID
+	 */
+	public Integer getDeptId() {
+		return deptId;
+	}
+
+	/**
+	 * 部署IDのセット
+	 *
+	 * @param deptId
+	 *            部署ID
+	 */
+	public void setDeptId(Integer deptId) {
+		this.deptId = deptId;
+	}
 }
