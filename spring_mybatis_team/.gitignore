@@ -33,3 +33,5 @@ build/
 .vscode/
 
 application-aws.properties
+/bin/
+application.properties
