@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -14,6 +15,7 @@ import jakarta.servlet.http.HttpSession;
  * 
  * @author System Shared
  */
+@WebFilter("/*")
 public class LoginCheckFilter extends HttpFilter {
 
 	@Override
@@ -22,7 +24,6 @@ public class LoginCheckFilter extends HttpFilter {
 
 		//セッションからユーザー情報を取得
 		HttpSession session = request.getSession(false);
-
 		Object user = (session != null) ? session.getAttribute("user") : null;
 
 		// ユーザーがNULLの場合、ログイン画面にリダイレクトする
